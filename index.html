@@ -27,14 +27,47 @@
       line-height: 1.6;
     }
 
-    /* ── NAVBAR ── */
+    html { scroll-behavior: smooth; }
+
+    /* ════════════════════════════════════════ */
+    /* ANIMATIONS & KEYFRAMES                  */
+    /* ════════════════════════════════════════ */
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes typewriter { from { width: 0; } to { width: 100%; } }
+    @keyframes blinkCursor { 0%, 49% { border-color: transparent; } 50%, 100% { border-color: #f9b5ae; } }
+    @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes logoFloat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+    @keyframes slideDownFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 4px 18px rgba(192,57,43,.42); } 50% { box-shadow: 0 4px 28px rgba(192,57,43,.65); } }
+    @keyframes cardAccent { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes slideUpStagger { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes particleFloat { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; } 50% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0.7; } }
+
+    /* ════════════════════════════════════════ */
+    /* NAVBAR                                  */
+    /* ════════════════════════════════════════ */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    nav.nav-scrolled {
       background: var(--white);
       border-bottom: 1px solid var(--border);
       box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      backdrop-filter: blur(10px);
     }
 
     .nav-inner {
@@ -45,6 +78,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      animation: slideDownFade 0.8s ease-out;
     }
 
     .logo {
@@ -53,6 +87,8 @@
       gap: 10px;
       text-decoration: none;
       color: var(--dark);
+      animation: logoFloat 3s ease-in-out infinite;
+      animation-delay: 0.3s;
     }
 
     .logo-icon {
@@ -93,29 +129,57 @@
 
     .nav-links a {
       text-decoration: none;
-      color: var(--gray);
+      color: rgba(0,0,0,.6);
       font-size: 14px;
       font-weight: 500;
       padding: 8px 15px;
       border-radius: 8px;
-      transition: color .15s, background .15s;
+      transition: color .25s, background .25s;
+      position: relative;
     }
+
+    nav.nav-scrolled .nav-links a { color: var(--gray); }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--red);
+      transform: translateX(-50%);
+      transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .nav-links a:hover::after { width: calc(100% - 30px); }
 
     .nav-links a:hover {
       color: var(--dark);
-      background: var(--gray-light);
+      background: transparent;
     }
 
     .nav-cta {
       color: var(--white) !important;
       background: var(--red) !important;
+      animation: glow 2s ease-in-out infinite;
+      animation-delay: 0.5s;
     }
 
     .nav-cta:hover {
       background: var(--red-light) !important;
+      animation: none;
     }
 
-    /* ── HERO ── */
+    /* ════════════════════════════════════════ */
+    /* PARTICLES BACKGROUND                   */
+    /* ════════════════════════════════════════ */
+    .particles { position: absolute; inset: 0; pointer-events: none; }
+    .particle { position: absolute; width: 3px; height: 3px; background: rgba(255,255,255,.2); border-radius: 50%; }
+
+    /* ════════════════════════════════════════ */
+    /* HERO SECTION                            */
+    /* ════════════════════════════════════════ */
     .hero {
       position: relative;
       min-height: 580px;
@@ -125,7 +189,6 @@
       background: linear-gradient(140deg, #0f1923 0%, #1a1a2e 45%, #0f3460 100%);
     }
 
-    /* Ambient glow blobs */
     .hero::before {
       content: '';
       position: absolute;
@@ -134,9 +197,10 @@
         radial-gradient(ellipse 70% 55% at 75% 45%, rgba(192,57,43,.22) 0%, transparent 65%),
         radial-gradient(ellipse 45% 70% at 15% 85%, rgba(15,52,96,.55) 0%, transparent 65%);
       pointer-events: none;
+      animation: gradientShift 8s ease-in-out infinite;
+      background-size: 200% 200%;
     }
 
-    /* Decorative geometry */
     .hero-deco {
       position: absolute;
       right: 0;
@@ -151,21 +215,22 @@
       position: absolute;
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,.06);
+      animation: float 6s ease-in-out infinite;
     }
 
-    .ring-1 { width: 480px; height: 480px; top: -120px; right: -120px; }
-    .ring-2 { width: 320px; height: 320px; top: 40px;   right: 40px;   border-color: rgba(192,57,43,.14); }
-    .ring-3 { width: 180px; height: 180px; top: 140px;  right: 180px;  border-color: rgba(255,255,255,.04); }
+    .ring-1 { width: 480px; height: 480px; top: -120px; right: -120px; animation-delay: 0s; }
+    .ring-2 { width: 320px; height: 320px; top: 40px;   right: 40px;   border-color: rgba(192,57,43,.14); animation-delay: 0.2s; }
+    .ring-3 { width: 180px; height: 180px; top: 140px;  right: 180px;  border-color: rgba(255,255,255,.04); animation-delay: 0.4s; }
 
-    /* Lanterns */
     .lantern {
       position: absolute;
       border-radius: 50% 50% 48% 52% / 62% 62% 38% 38%;
+      animation: float 8s ease-in-out infinite;
     }
 
-    .lantern-1 { width: 90px;  height: 124px; background: rgba(192,57,43,.28); top: -20px; right: 22%; }
-    .lantern-2 { width: 60px;  height: 84px;  background: rgba(230,126,34,.22); top:  16px; right: 14%; }
-    .lantern-3 { width: 44px;  height: 60px;  background: rgba(192,57,43,.15); bottom: 60px; right: 32%; }
+    .lantern-1 { width: 90px;  height: 124px; background: rgba(192,57,43,.28); top: -20px; right: 22%; animation-delay: 0.3s; }
+    .lantern-2 { width: 60px;  height: 84px;  background: rgba(230,126,34,.22); top:  16px; right: 14%; animation-delay: 0.6s; }
+    .lantern-3 { width: 44px;  height: 60px;  background: rgba(192,57,43,.15); bottom: 60px; right: 32%; animation-delay: 0.9s; }
 
     .hero-content {
       position: relative;
@@ -190,6 +255,7 @@
       padding: 5px 13px;
       border-radius: 100px;
       margin-bottom: 22px;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
     }
 
     .hero-badge::before {
@@ -199,6 +265,7 @@
       background: #e74c3c;
       border-radius: 50%;
       flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
     }
 
     .hero h1 {
@@ -209,6 +276,13 @@
       max-width: 620px;
       letter-spacing: -1.2px;
       margin-bottom: 20px;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      animation: typewriter 3.5s steps(50, end) 0.4s both;
+      white-space: normal;
+      word-wrap: break-word;
+      width: 100%;
     }
 
     .hero h1 em {
@@ -222,6 +296,7 @@
       max-width: 460px;
       margin-bottom: 38px;
       line-height: 1.7;
+      animation: fadeInUp 0.8s ease-out 1.0s both;
     }
 
     .hero-actions {
@@ -229,6 +304,9 @@
       gap: 12px;
       flex-wrap: wrap;
     }
+
+    .hero-actions .btn:nth-child(1) { animation: slideUp 0.8s ease-out 1.3s both; }
+    .hero-actions .btn:nth-child(2) { animation: slideUp 0.8s ease-out 1.5s both; }
 
     .btn {
       display: inline-flex;
@@ -239,13 +317,30 @@
       font-size: 15px;
       font-weight: 600;
       text-decoration: none;
-      transition: transform .15s, box-shadow .15s, background .15s;
+      transition: transform .2s, box-shadow .2s, background .2s;
       cursor: pointer;
       border: none;
       line-height: 1;
+      position: relative;
+      overflow: hidden;
     }
 
-    .btn:hover { transform: translateY(-2px); }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:active::before { width: 300px; height: 300px; }
+
+    .btn:hover { transform: translateY(-3px); }
 
     .btn svg { flex-shrink: 0; }
 
@@ -257,7 +352,7 @@
 
     .btn-primary:hover {
       background: var(--red-light);
-      box-shadow: 0 6px 22px rgba(192,57,43,.52);
+      box-shadow: 0 8px 28px rgba(192,57,43,.55);
     }
 
     .btn-ghost {
@@ -267,7 +362,10 @@
       backdrop-filter: blur(10px);
     }
 
-    .btn-ghost:hover { background: rgba(255,255,255,.18); }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,.18);
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    }
 
     .hero-stats {
       display: flex;
@@ -278,12 +376,18 @@
       flex-wrap: wrap;
     }
 
+    .hero-stats > div { animation: fadeInUp 0.8s ease-out both; }
+    .hero-stats > div:nth-child(1) { animation-delay: 1.8s; }
+    .hero-stats > div:nth-child(2) { animation-delay: 2.0s; }
+    .hero-stats > div:nth-child(3) { animation-delay: 2.2s; }
+
     .stat-num {
       display: block;
       font-size: 26px;
       font-weight: 800;
       color: var(--white);
       letter-spacing: -0.5px;
+      font-variant-numeric: tabular-nums;
     }
 
     .stat-label {
@@ -292,7 +396,9 @@
       margin-top: 3px;
     }
 
-    /* ── SECTION SHARED ── */
+    /* ════════════════════════════════════════ */
+    /* SECTION SHARED                          */
+    /* ════════════════════════════════════════ */
     .section-wrap { padding: 80px 28px; }
 
     .section-inner { max-width: 1120px; margin: 0 auto; }
@@ -304,6 +410,8 @@
       text-transform: uppercase;
       color: var(--red);
       margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
     }
 
     .section-heading {
@@ -312,6 +420,8 @@
       letter-spacing: -0.5px;
       color: var(--dark);
       margin-bottom: 12px;
+      opacity: 0;
+      animation: slideInLeft 0.8s ease-out 0.1s forwards;
     }
 
     .section-desc {
@@ -320,9 +430,13 @@
       max-width: 500px;
       margin-bottom: 48px;
       line-height: 1.7;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.2s forwards;
     }
 
-    /* ── CARDS ── */
+    /* ════════════════════════════════════════ */
+    /* CARDS SECTION                           */
+    /* ════════════════════════════════════════ */
     .articles-bg { background: var(--gray-light); }
 
     .cards-grid {
@@ -336,13 +450,40 @@
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform .22s, box-shadow .22s;
+      transition: transform .35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow .35s ease, border-color .35s ease;
       display: flex;
       flex-direction: column;
+      opacity: 0;
+      transform: translateY(30px);
+      position: relative;
     }
 
+    .card::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0;
+      width: 4px;
+      height: 0;
+      background: var(--red);
+      transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: 10;
+    }
+
+    .card:hover::before { height: 100%; }
+
+    .card.card-visible {
+      opacity: 1;
+      transform: translateY(0);
+      animation: slideUpStagger 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0s; }
+    .card:nth-child(2) { animation-delay: 0.15s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
       box-shadow: var(--shadow-hover);
     }
 
@@ -372,6 +513,7 @@
       position: relative;
       z-index: 1;
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.28));
+      animation: float 4s ease-in-out infinite;
     }
 
     .card-tag {
@@ -388,6 +530,7 @@
       text-transform: uppercase;
       padding: 4px 11px;
       border-radius: 100px;
+      animation: fadeInUp 0.6s ease-out 0.5s both;
     }
 
     .card-body {
@@ -454,10 +597,10 @@
       font-weight: 600;
       color: var(--red);
       text-decoration: none;
-      transition: gap .15s;
+      transition: gap .25s cubic-bezier(0.25, 0.46, 0.45, 0.94), color .25s ease;
     }
 
-    .read-link:hover { gap: 9px; }
+    .read-link:hover { gap: 9px; color: var(--red-light); }
 
     .read-link svg {
       width: 13px;
@@ -467,7 +610,10 @@
       stroke-width: 2.5;
       stroke-linecap: round;
       stroke-linejoin: round;
+      transition: transform .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+
+    .read-link:hover svg { transform: translateX(3px); }
 
     .card-rating {
       display: flex;
@@ -479,10 +625,25 @@
 
     .stars { color: #f59e0b; letter-spacing: -1px; font-size: 13px; }
 
-    /* ── BANNER ── */
+    /* ════════════════════════════════════════ */
+    /* BANNER                                  */
+    /* ════════════════════════════════════════ */
     .banner {
-      background: var(--dark);
+      background: linear-gradient(-45deg, #0f1923, #1a1a2e, #0a2744, #0f1923);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       padding: 62px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(192,57,43,.15), transparent);
+      animation: gradientShift 20s ease-in-out infinite reverse;
+      pointer-events: none;
     }
 
     .banner-inner {
@@ -493,6 +654,9 @@
       justify-content: space-between;
       gap: 32px;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.8s ease-out;
     }
 
     .banner-copy h2 {
@@ -508,11 +672,61 @@
       color: rgba(255,255,255,.5);
     }
 
-    /* ── FOOTER ── */
+    .banner .btn-primary {
+      animation: glow 2.5s ease-in-out infinite;
+    }
+
+    /* ════════════════════════════════════════ */
+    /* SCROLL TO TOP BUTTON                    */
+    /* ════════════════════════════════════════ */
+    #scrollTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+      box-shadow: 0 4px 16px rgba(192,57,43,.35);
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    #scrollTop.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    #scrollTop:hover {
+      background: var(--red-light);
+      box-shadow: 0 6px 24px rgba(192,57,43,.55);
+      transform: translateY(-3px) scale(1);
+    }
+
+    #scrollTop:active {
+      transform: translateY(0) scale(0.95);
+    }
+
+    /* ════════════════════════════════════════ */
+    /* FOOTER                                  */
+    /* ════════════════════════════════════════ */
     footer {
       background: var(--white);
       border-top: 1px solid var(--border);
       padding: 28px;
+      animation: fadeInUp 0.8s ease-out;
     }
 
     .footer-inner {
@@ -535,29 +749,48 @@
       font-size: 13px;
       color: var(--gray);
       text-decoration: none;
-      transition: color .15s;
+      transition: color .25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--red);
+      transition: width 0.3s ease;
     }
 
     .footer-links a:hover { color: var(--dark); }
+    .footer-links a:hover::after { width: 100%; }
 
     .footer-copy {
       font-size: 13px;
       color: var(--gray);
+      animation: fadeInUp 0.8s ease-out;
+      animation-delay: 0.1s;
     }
 
-    /* ── RESPONSIVE ── */
+    /* ════════════════════════════════════════ */
+    /* RESPONSIVE                              */
+    /* ════════════════════════════════════════ */
     @media (max-width: 640px) {
       .nav-links .hide-mobile { display: none; }
       .hero-stats { gap: 22px; }
       .banner-inner { flex-direction: column; align-items: flex-start; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
+      #scrollTop { bottom: 20px; right: 20px; width: 44px; height: 44px; }
+      .hero h1 { animation: none; width: auto; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
-  <nav>
+  <nav id="navbar">
     <div class="nav-inner">
       <a href="#" class="logo">
         <div class="logo-icon">
@@ -580,6 +813,8 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div class="particles" id="particles"></div>
+
     <div class="hero-deco">
       <div class="hero-deco-ring ring-1"></div>
       <div class="hero-deco-ring ring-2"></div>
@@ -602,15 +837,15 @@
       </div>
       <div class="hero-stats">
         <div>
-          <span class="stat-num">15+</span>
+          <span class="stat-num" data-count="15">0</span><span style="font-size:20px;">+</span>
           <div class="stat-label">VPNs tested in-country</div>
         </div>
         <div>
-          <span class="stat-num">2025</span>
+          <span class="stat-num" data-count="2026">0</span>
           <div class="stat-label">Last updated</div>
         </div>
         <div>
-          <span class="stat-num">50k+</span>
+          <span class="stat-num" data-count="50">0</span><span style="font-size:20px;">k+</span>
           <div class="stat-label">Travelers helped</div>
         </div>
       </div>
@@ -694,7 +929,7 @@
             <div class="card-meta">
               <span class="meta-item">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                6 min read
+                8 min read
               </span>
               <span>Updated Jun 2026</span>
             </div>
@@ -754,6 +989,189 @@
       <p class="footer-copy">© 2026 InsideChina.guide &middot; For informational purposes only</p>
     </div>
   </footer>
+
+  <!-- SCROLL TO TOP BUTTON -->
+  <button id="scrollTop" onclick="scrollToTop()">↑</button>
+
+  <script>
+    // ════════════════════════════════════════
+    // PARTICLE BACKGROUND
+    // ════════════════════════════════════════
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 30 : 60;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+        particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+        particle.style.animation = `particleFloat ${3 + Math.random() * 4}s ease-in-out infinite`;
+        particle.style.animationDelay = Math.random() * 2 + 's';
+
+        // Connect particles with lines
+        if (i > 0 && Math.random() > 0.7) {
+          const prevParticle = container.children[i - 1];
+          const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.style.position = 'absolute';
+          svg.style.inset = '0';
+          svg.style.pointerEvents = 'none';
+          svg.style.opacity = '0.1';
+          container.appendChild(svg);
+        }
+
+        container.appendChild(particle);
+      }
+    }
+
+    // ════════════════════════════════════════
+    // NAVBAR SCROLL EFFECT
+    // ════════════════════════════════════════
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 50) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+      lastScroll = currentScroll;
+    });
+
+    // ════════════════════════════════════════
+    // STAT COUNTER ANIMATION
+    // ════════════════════════════════════════
+    function animateCounter(element, target, duration = 2000) {
+      const start = 0;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.floor(start + (target - start) * progress);
+        element.textContent = current;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          element.textContent = target;
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Start counters when hero is visible
+    function startCountersWhenVisible() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const stats = entry.target.querySelectorAll('[data-count]');
+            stats.forEach(stat => {
+              const target = parseInt(stat.getAttribute('data-count'));
+              animateCounter(stat, target, 1800);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      const heroSection = document.querySelector('.hero');
+      observer.observe(heroSection);
+    }
+
+    // ════════════════════════════════════════
+    // CARD SCROLL ANIMATION
+    // ════════════════════════════════════════
+    function observeCards() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('card-visible');
+            }, index * 100);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.card').forEach(card => {
+        observer.observe(card);
+      });
+    }
+
+    // ════════════════════════════════════════
+    // SECTION ANIMATION ON SCROLL
+    // ════════════════════════════════════════
+    function observeSections() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const eyebrow = entry.target.querySelector('.section-eyebrow');
+            const heading = entry.target.querySelector('.section-heading');
+            const desc = entry.target.querySelector('.section-desc');
+
+            if (eyebrow) eyebrow.style.animation = 'fadeInUp 0.8s ease-out 0s both';
+            if (heading) heading.style.animation = 'slideInLeft 0.8s ease-out 0.1s both';
+            if (desc) desc.style.animation = 'fadeInUp 0.8s ease-out 0.2s both';
+
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.section-wrap').forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    // ════════════════════════════════════════
+    // SCROLL TO TOP BUTTON
+    // ════════════════════════════════════════
+    const scrollTopBtn = document.getElementById('scrollTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // ════════════════════════════════════════
+    // SMOOTH SCROLL LINKS
+    // ════════════════════════════════════════
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && document.querySelector(href)) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ════════════════════════════════════════
+    // INITIALIZE
+    // ════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      observeCards();
+      observeSections();
+      startCountersWhenVisible();
+    });
+  </script>
 
 </body>
 </html>
