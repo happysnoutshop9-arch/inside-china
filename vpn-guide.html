@@ -764,6 +764,14 @@
 
     .cta-sub { font-size: 13px; color: rgba(255,255,255,.3); margin-top: 14px; margin-bottom: 0; }
 
+    /* Internal links */
+    .internal-link-box { display: flex; align-items: center; gap: 14px; background: var(--gray-light); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; text-decoration: none; transition: background .15s, border-color .15s, transform .15s; margin-bottom: 10px; }
+    .internal-link-box:hover { background: var(--white); border-color: rgba(192,57,43,.3); transform: translateX(4px); }
+    .int-icon { font-size: 22px; flex-shrink: 0; }
+    .int-label { font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--gray); margin-bottom: 2px; }
+    .int-title { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .int-arrow { margin-left: auto; font-size: 18px; color: var(--red); flex-shrink: 0; }
+
     /* Footer */
     footer {
       background: var(--white); border-top: 1px solid var(--border);
@@ -1393,6 +1401,35 @@
         </div>
 
         <p><strong>Set it up before you fly.</strong></p>
+      </section>
+
+      <!-- INTERNAL LINKS -->
+      <section id="also-read">
+        <h2>Also Read</h2>
+        <a href="esim-guide.html" class="internal-link-box">
+          <span class="int-icon">📱</span>
+          <div>
+            <div class="int-label">eSIM Guide</div>
+            <div class="int-title">Best eSIM for China Travel 2026 — Tested &amp; Compared</div>
+          </div>
+          <span class="int-arrow">→</span>
+        </a>
+        <a href="alipay-guide.html" class="internal-link-box">
+          <span class="int-icon">💳</span>
+          <div>
+            <div class="int-label">Payment Guide</div>
+            <div class="int-title">How to Set Up Alipay as a Foreigner in China</div>
+          </div>
+          <span class="int-arrow">→</span>
+        </a>
+        <a href="144-hour-visa-free.html" class="internal-link-box">
+          <span class="int-icon">🛂</span>
+          <div>
+            <div class="int-label">Visa Guide</div>
+            <div class="int-title">144-Hour Visa-Free Transit in China — Complete Guide</div>
+          </div>
+          <span class="int-arrow">→</span>
+        </a>
       </section>
 
     </article>
