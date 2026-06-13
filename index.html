@@ -447,7 +447,7 @@
     .hero-stats > div:nth-child(3) { animation-delay: 2.2s; }
 
     .stat-num {
-      display: block;
+      display: inline;
       font-size: 26px;
       font-weight: 800;
       color: var(--white);
@@ -455,10 +455,22 @@
       font-variant-numeric: tabular-nums;
     }
 
+    .stat-suffix {
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+      margin-bottom: 3px;
+    }
+
     .stat-label {
       font-size: 13px;
       color: rgba(255,255,255,.45);
-      margin-top: 3px;
     }
 
     /* ════════════════════════════════════════ */
@@ -1010,15 +1022,23 @@
       </div>
       <div class="hero-stats">
         <div>
-          <span class="stat-num" data-count="15">0</span><span style="font-size:20px;">+</span>
+          <div class="stat-row">
+            <span class="stat-num" data-count="15">0</span>
+            <span class="stat-suffix">+</span>
+          </div>
           <div class="stat-label">VPNs tested in-country</div>
         </div>
         <div>
-          <span class="stat-num" data-count="2026">0</span>
+          <div class="stat-row">
+            <span class="stat-num">2026</span>
+          </div>
           <div class="stat-label">Last updated</div>
         </div>
         <div>
-          <span class="stat-num" data-count="50">0</span><span style="font-size:20px;">k+</span>
+          <div class="stat-row">
+            <span class="stat-num" data-count="50">0</span>
+            <span class="stat-suffix">k+</span>
+          </div>
           <div class="stat-label">Travelers helped</div>
         </div>
       </div>
