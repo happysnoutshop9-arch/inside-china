@@ -855,8 +855,252 @@
     }
 
     /* ════════════════════════════════════════ */
+    /* FEATURED ARTICLE                        */
+    /* ════════════════════════════════════════ */
+    .featured-section {
+      background: linear-gradient(-45deg, #0f1923, #1a1a2e, #0a2744, #0f1923);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      padding: 60px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 80% at 30% 50%, rgba(192,57,43,.14), transparent 65%);
+      pointer-events: none;
+    }
+
+    .featured-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .featured-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(192,57,43,.18);
+      border: 1px solid rgba(192,57,43,.32);
+      color: #f9b5ae;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .featured-label::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: #e74c3c;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .featured-title {
+      font-size: clamp(21px, 2.8vw, 32px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -.6px;
+      line-height: 1.18;
+      margin-bottom: 12px;
+    }
+
+    .featured-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,.5);
+      line-height: 1.65;
+      margin-bottom: 24px;
+      max-width: 480px;
+    }
+
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,.28);
+    }
+
+    .featured-visual {
+      width: 140px;
+      height: 140px;
+      background: rgba(192,57,43,.1);
+      border: 1px solid rgba(192,57,43,.18);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      flex-shrink: 0;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    /* ════════════════════════════════════════ */
+    /* CATEGORIES LAYOUT                       */
+    /* ════════════════════════════════════════ */
+    .categories-wrap {
+      background: var(--gray-light);
+      padding: 64px 28px 80px;
+    }
+
+    .categories-inner { max-width: 1120px; margin: 0 auto; }
+
+    .categories-top { margin-bottom: 52px; }
+
+    .cat-section { margin-bottom: 48px; }
+    .cat-section:last-child { margin-bottom: 0; }
+
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cat-emoji-badge {
+      width: 40px;
+      height: 40px;
+      background: var(--dark);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .cat-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -.3px;
+      margin-bottom: 1px;
+    }
+
+    .cat-sub { font-size: 13px; color: var(--gray); }
+
+    .cat-count {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray);
+      background: var(--border);
+      padding: 3px 10px;
+      border-radius: 100px;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════════════ */
+    /* COMPACT CARDS                           */
+    /* ════════════════════════════════════════ */
+    .compact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .compact-card {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 18px 18px 16px;
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow);
+      transition: transform .28s cubic-bezier(.25,.46,.45,.94), box-shadow .28s ease, border-color .28s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .compact-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--red);
+      transform: scaleY(0);
+      transition: transform .3s cubic-bezier(.25,.46,.45,.94);
+      transform-origin: bottom;
+    }
+
+    .compact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: rgba(192,57,43,.18); }
+    .compact-card:hover::before { transform: scaleY(1); }
+
+    .compact-card.coming-soon {
+      opacity: .42;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .cc-emoji { font-size: 28px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+
+    .cc-body { flex: 1; min-width: 0; }
+
+    .cc-top { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+
+    .cc-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: .5px;
+      text-transform: uppercase; color: var(--red);
+      background: rgba(192,57,43,.08); padding: 2px 7px; border-radius: 100px;
+    }
+
+    .cc-tag-soon {
+      font-size: 10px; font-weight: 700; letter-spacing: .5px;
+      text-transform: uppercase; color: var(--gray);
+      background: rgba(107,114,128,.1); padding: 2px 7px; border-radius: 100px;
+    }
+
+    .cc-time { font-size: 11px; color: var(--gray); }
+
+    .cc-title {
+      font-size: 14px; font-weight: 700; color: var(--dark);
+      letter-spacing: -.2px; line-height: 1.3; margin-bottom: 5px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .cc-desc {
+      font-size: 12.5px; color: var(--gray); line-height: 1.5; margin-bottom: 10px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .cc-link {
+      font-size: 12px; font-weight: 700; color: var(--red);
+      display: inline-flex; align-items: center; gap: 4px;
+      transition: gap .2s;
+    }
+
+    .compact-card:hover .cc-link { gap: 7px; }
+
+    /* ════════════════════════════════════════ */
     /* RESPONSIVE                              */
     /* ════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .compact-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-inner { grid-template-columns: 1fr; }
+      .featured-visual { display: none; }
+    }
+
     @media (max-width: 640px) {
       .nav-links .hide-mobile { display: none; }
       .hero-stats { gap: 22px; }
@@ -865,6 +1109,7 @@
       #scrollTop { bottom: 20px; right: 20px; width: 44px; height: 44px; }
       .hero h1 { animation: none; width: auto; }
       .lantern-4 { display: none; }
+      .compact-grid { grid-template-columns: 1fr; }
     }
   </style>
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -885,7 +1130,7 @@
       </a>
 
       <ul class="nav-links">
-        <li class="hide-mobile"><a href="#vpn">VPN Guide</a></li>
+        <li class="hide-mobile"><a href="vpn-guide.html">VPN Guide</a></li>
         <li class="hide-mobile"><a href="#payment">Payment</a></li>
         <li class="hide-mobile"><a href="#about">About</a></li>
         <li><a href="#articles" class="nav-cta">Start Here</a></li>
@@ -1047,191 +1292,176 @@
     </div>
   </section>
 
-  <!-- ARTICLES -->
-  <section class="section-wrap articles-bg" id="articles">
-    <div class="section-inner">
-      <p class="section-eyebrow">Essential Guides</p>
-      <h2 class="section-heading">Everything You Need Before You Go</h2>
-      <p class="section-desc">Practical, up-to-date guides tested by real travelers on the ground in China.</p>
-
-      <div class="cards-grid">
-
-        <!-- VPN Card -->
-        <article class="card" id="vpn">
-          <div class="card-thumb thumb-vpn">
-            <div class="card-tag">Essential</div>
-            <div class="thumb-emoji">🔒</div>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span class="meta-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                8 min read
-              </span>
-              <span>Updated Jun 2026</span>
-            </div>
-            <h3 class="card-title">Best VPNs for China 2026</h3>
-            <p class="card-desc">Google, Instagram, WhatsApp — all blocked in China. Here are the only VPNs that reliably work behind the Great Firewall, tested live from Shanghai and Beijing.</p>
-            <div class="card-footer">
-              <a href="vpn-guide.html" class="read-link">
-                Read guide
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <div class="card-rating">
-                <span class="stars">★★★★★</span>
-                <span>4.9</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Alipay Card -->
-        <article class="card" id="payment">
-          <div class="card-thumb thumb-pay">
-            <div class="card-tag">Payments</div>
-            <div class="thumb-emoji">📱</div>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span class="meta-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                10 min read
-              </span>
-              <span>Updated May 2026</span>
-            </div>
-            <h3 class="card-title">How to Set Up Alipay as a Foreigner</h3>
-            <p class="card-desc">Cash is nearly dead in China. This step-by-step guide walks you through setting up Alipay with a foreign card — so you can pay anywhere, from street food to high-speed rail.</p>
-            <div class="card-footer">
-              <a href="alipay-guide.html" class="read-link">
-                Read guide
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <div class="card-rating">
-                <span class="stars">★★★★★</span>
-                <span>4.8</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- eSIM Card -->
-        <article class="card">
-          <div class="card-thumb thumb-esim">
-            <div class="card-tag">Connectivity</div>
-            <div class="thumb-emoji">📡</div>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span class="meta-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                8 min read
-              </span>
-              <span>Updated Jun 2026</span>
-            </div>
-            <h3 class="card-title">Best eSIM for China Travel</h3>
-            <p class="card-desc">Skip the airport SIM queues. The right eSIM gives you fast data on arrival — some even bypass the Great Firewall without a VPN. We rank the top options for 2026.</p>
-            <div class="card-footer">
-              <a href="esim-guide.html" class="read-link">
-                Read guide
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <div class="card-rating">
-                <span class="stars">★★★★☆</span>
-                <span>4.7</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-
-        <!-- 144-Hour Visa-Free Card -->
-        <article class="card">
-          <div class="card-thumb thumb-visa">
-            <div class="card-tag">Visa</div>
-            <div class="thumb-emoji">🛂</div>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span class="meta-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                12 min read
-              </span>
-              <span>Updated Jun 2026</span>
-            </div>
-            <h3 class="card-title">144-Hour Visa-Free Transit in China</h3>
-            <p class="card-desc">Long layover in China? You may be able to leave the airport and explore the city — no visa required. Here's exactly how the 144-hour transit policy works and who qualifies.</p>
-            <div class="card-footer">
-              <a href="144-hour-visa-free.html" class="read-link">
-                Read guide
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <div class="card-rating">
-                <span class="stars">★★★★★</span>
-                <span>4.8</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- WeChat Card -->
-        <article class="card">
-          <div class="card-thumb thumb-wechat">
-            <div class="card-tag">Communication</div>
-            <div class="thumb-emoji">💬</div>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span class="meta-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                12 min read
-              </span>
-              <span>Updated Jun 2026</span>
-            </div>
-            <h3 class="card-title">WeChat for Tourists (2026): Complete Setup Guide</h3>
-            <p class="card-desc">WeChat is China's essential app — messaging, payments, ticket bookings, and more. Here's how to register, get verified, and set up WeChat Pay with a foreign card before you land.</p>
-            <div class="card-footer">
-              <a href="wechat-guide.html" class="read-link">
-                Read guide
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <div class="card-rating">
-                <span class="stars">★★★★★</span>
-                <span>4.9</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Wise Card -->
-        <article class="card">
-          <div class="card-thumb thumb-wise">
-            <div class="card-tag">Money</div>
-            <div class="thumb-emoji">💳</div>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-              <span class="meta-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                10 min read
-              </span>
-              <span>Updated Jun 2026</span>
-            </div>
-            <h3 class="card-title">How to Use Wise in China (2026)</h3>
-            <p class="card-desc">Wise gives you real exchange rates and easy ATM access across China. Here's exactly what it can do, what it can't, and how to combine it with Alipay for stress-free travel money.</p>
-            <div class="card-footer">
-              <a href="wise-guide.html" class="read-link">
-                Read guide
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <div class="card-rating">
-                <span class="stars">★★★★★</span>
-                <span>4.8</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
+  <!-- FEATURED ARTICLE -->
+  <section class="featured-section" id="articles">
+    <div class="featured-inner">
+      <div>
+        <div class="featured-label">⭐ Featured Guide</div>
+        <h2 class="featured-title">Best VPNs for China 2026 — Tested Behind the Firewall</h2>
+        <p class="featured-desc">Google, Instagram, WhatsApp — all blocked in China. This is the most important guide to read before your trip. We tested 15+ VPNs in-country so you don't have to.</p>
+        <a href="vpn-guide.html" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Read the VPN Guide
+        </a>
+        <div class="featured-meta">
+          <span>8 min read</span>
+          <span>·</span>
+          <span>Updated June 2026</span>
+          <span>·</span>
+          <span>★★★★★ 4.9</span>
+        </div>
       </div>
+      <div class="featured-visual">🔒</div>
+    </div>
+  </section>
+
+  <!-- CATEGORY GUIDES -->
+  <section class="categories-wrap">
+    <div class="categories-inner">
+
+      <div class="categories-top">
+        <p class="section-eyebrow">All Guides</p>
+        <h2 class="section-heading">Everything You Need Before You Go</h2>
+        <p class="section-desc">Practical, up-to-date guides tested by real travelers on the ground in China.</p>
+      </div>
+
+      <!-- 📶 Internet & Apps -->
+      <div class="cat-section" id="internet">
+        <div class="cat-header">
+          <div class="cat-emoji-badge">📶</div>
+          <div>
+            <div class="cat-title">Internet & Apps</div>
+            <div class="cat-sub">Stay connected and social behind the Great Firewall</div>
+          </div>
+          <span class="cat-count">3 guides</span>
+        </div>
+        <div class="compact-grid">
+          <a href="vpn-guide.html" class="compact-card" id="vpn">
+            <div class="cc-emoji">🔒</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag">Essential</span><span class="cc-time">8 min</span></div>
+              <div class="cc-title">Best VPNs for China 2026</div>
+              <div class="cc-desc">Tested in-country. The only VPNs that reliably bypass the Great Firewall.</div>
+              <span class="cc-link">Read guide →</span>
+            </div>
+          </a>
+          <a href="esim-guide.html" class="compact-card">
+            <div class="cc-emoji">📡</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag">Connectivity</span><span class="cc-time">8 min</span></div>
+              <div class="cc-title">Best eSIM for China Travel</div>
+              <div class="cc-desc">Skip airport SIM queues. Fast data on arrival — some even bypass the firewall.</div>
+              <span class="cc-link">Read guide →</span>
+            </div>
+          </a>
+          <a href="wechat-guide.html" class="compact-card">
+            <div class="cc-emoji">💬</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag">Apps</span><span class="cc-time">12 min</span></div>
+              <div class="cc-title">WeChat for Tourists (2026)</div>
+              <div class="cc-desc">Registration, WeChat Pay with foreign cards, Mini Programs. Before you land.</div>
+              <span class="cc-link">Read guide →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 💳 Money & Payments -->
+      <div class="cat-section" id="payment">
+        <div class="cat-header">
+          <div class="cat-emoji-badge">💳</div>
+          <div>
+            <div class="cat-title">Money & Payments</div>
+            <div class="cat-sub">Pay like a local — from street food to five-star hotels</div>
+          </div>
+          <span class="cat-count">2 guides</span>
+        </div>
+        <div class="compact-grid">
+          <a href="alipay-guide.html" class="compact-card">
+            <div class="cc-emoji">📱</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag">Payments</span><span class="cc-time">10 min</span></div>
+              <div class="cc-title">How to Set Up Alipay as a Foreigner</div>
+              <div class="cc-desc">Cash is nearly dead in China. Set up Alipay with a foreign card in 20 minutes.</div>
+              <span class="cc-link">Read guide →</span>
+            </div>
+          </a>
+          <a href="wise-guide.html" class="compact-card">
+            <div class="cc-emoji">💳</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag">Money</span><span class="cc-time">10 min</span></div>
+              <div class="cc-title">How to Use Wise in China (2026)</div>
+              <div class="cc-desc">Real exchange rates and easy ATM access. The smartest travel money card.</div>
+              <span class="cc-link">Read guide →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 🛂 Visa & Entry -->
+      <div class="cat-section" id="visa">
+        <div class="cat-header">
+          <div class="cat-emoji-badge">🛂</div>
+          <div>
+            <div class="cat-title">Visa & Entry</div>
+            <div class="cat-sub">Entry rules, transit policies, and border tips</div>
+          </div>
+          <span class="cat-count">1 guide</span>
+        </div>
+        <div class="compact-grid">
+          <a href="144-hour-visa-free.html" class="compact-card">
+            <div class="cc-emoji">🛂</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag">Visa</span><span class="cc-time">12 min</span></div>
+              <div class="cc-title">144-Hour Visa-Free Transit in China</div>
+              <div class="cc-desc">Long layover? Leave the airport and explore — no visa required. Who qualifies.</div>
+              <span class="cc-link">Read guide →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 🗺️ Destinations — Coming Soon -->
+      <div class="cat-section" id="destinations">
+        <div class="cat-header">
+          <div class="cat-emoji-badge" style="background:#9ca3af;">🗺️</div>
+          <div>
+            <div class="cat-title" style="color:#9ca3af;">Destinations</div>
+            <div class="cat-sub">City guides, top attractions, and hidden gems</div>
+          </div>
+          <span class="cat-count" style="color:#9ca3af;background:#e5e7eb;">Coming Soon</span>
+        </div>
+        <div class="compact-grid">
+          <div class="compact-card coming-soon">
+            <div class="cc-emoji">🏯</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag-soon">Coming Soon</span></div>
+              <div class="cc-title">Beijing City Guide</div>
+              <div class="cc-desc">Forbidden City, Great Wall, hutongs — the complete first-time visitor guide.</div>
+              <span class="cc-link" style="color:#9ca3af;">Coming soon</span>
+            </div>
+          </div>
+          <div class="compact-card coming-soon">
+            <div class="cc-emoji">🌆</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag-soon">Coming Soon</span></div>
+              <div class="cc-title">Shanghai City Guide</div>
+              <div class="cc-desc">The Bund, French Concession, and how to navigate China's most modern city.</div>
+              <span class="cc-link" style="color:#9ca3af;">Coming soon</span>
+            </div>
+          </div>
+          <div class="compact-card coming-soon">
+            <div class="cc-emoji">🐼</div>
+            <div class="cc-body">
+              <div class="cc-top"><span class="cc-tag-soon">Coming Soon</span></div>
+              <div class="cc-title">Chengdu City Guide</div>
+              <div class="cc-desc">Giant pandas, spicy hotpot, and the most laid-back city in China.</div>
+              <span class="cc-link" style="color:#9ca3af;">Coming soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
